@@ -7,6 +7,10 @@
 //
 
 #import "TMPAppDelegate.h"
+#import "TMPBasicViewController.h"
+#import <GoogleMaps/GoogleMaps.h>
+#import "TMPStateInterface.h"
+#import "TMPPersistenceManager.h"
 
 @implementation TMPAppDelegate
 
@@ -16,9 +20,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [GMSServices provideAPIKey:@"AIzaSyCpYyd6g_VSyUTLXp9K-89ZOIbU0YpvQv0"];
+    globalStateInterface = [[TMPStateInterface alloc] init];
+    globalStateInterface.persistenceManager = [[TMPPersistenceManager alloc] initWithContext:[self managedObjectContext]];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = [[TMPBasicViewController alloc] initWithNibName:@"MainView_Iphone" bundle:nil];
     [self.window makeKeyAndVisible];
     return YES;
 }
